@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:crypto_currencies/repositories/models/CryptoCoin.dart';
 import 'package:flutter/material.dart';
 
 class CryptoCoinScreen extends StatefulWidget {
@@ -10,13 +11,13 @@ class CryptoCoinScreen extends StatefulWidget {
 }
 
 class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
-  String? coinName;
+  CryptoCoin? coin;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(coinName ?? '...'),
+        title: Text(coin!.name),
       ),
     );
   }
@@ -29,11 +30,11 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
       log('You must provide args');
       return;
     }
-    if (args is! String) {
-      log('You must provide String args');
+    if (args is! CryptoCoin) {
+      log('You must provide CryptoCoin args');
       return;
     }
-    coinName = args;
+    coin = args;
     setState(() {});
     super.didChangeDependencies();
   }

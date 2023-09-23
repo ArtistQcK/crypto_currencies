@@ -6,6 +6,7 @@ primarySwatch: Colors.yellow,
 dividerColor: Colors.white12,
 listTileTheme: ListTileThemeData(iconColor: Colors.white54),
 appBarTheme: AppBarTheme(
+  elevation: 5,
 centerTitle: true,
 backgroundColor: Colors.grey[900],
 titleTextStyle: TextStyle(
