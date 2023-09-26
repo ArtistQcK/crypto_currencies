@@ -1,7 +1,6 @@
 import 'dart:developer';
-
-import 'package:crypto_currencies/repositories/models/CryptoCoin.dart';
 import 'package:flutter/material.dart';
+import '../../../repositories/crypto_coins/models/CryptoCoin.dart';
 
 class CryptoCoinScreen extends StatefulWidget {
   const CryptoCoinScreen({super.key});
