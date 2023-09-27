@@ -7,6 +7,7 @@ class CryptoCoinsRepository implements AbstractCoinsRepository {
   final Dio dio;
 
   CryptoCoinsRepository({required this.dio});
+
   @override
   Future<List<CryptoCoin>> getCoinsList() async {
     final response = await dio.get(
@@ -15,10 +16,14 @@ class CryptoCoinsRepository implements AbstractCoinsRepository {
     final dataRaw = data['RAW'] as Map<String, dynamic>;
 
     final List<CryptoCoin> CryptoCoinsList = dataRaw.entries.map((e) {
-      final usdData = (e.value as Map<String,dynamic>)['USD'] as Map<String,dynamic>;
+      final usdData =
+          (e.value as Map<String, dynamic>)['USD'] as Map<String, dynamic>;
       return CryptoCoin(
-        name: e.key, priceInUSD: usdData['PRICE'].toDouble(),
+        name: e.key,
+        priceInUSD: usdData['PRICE'].toDouble(),
         imgURL: 'https://www.cryptocompare.com${usdData['IMAGEURL']}',
+        high24Hour: usdData['HIGH24HOUR'].toDouble(),
+        low24Hour: usdData['LOW24HOUR'].toDouble(),
       );
     }).toList();
     return CryptoCoinsList;

@@ -10,13 +10,13 @@ part 'crypto_list_event.dart';
 part 'crypto_list_state.dart';
 
 class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
-  CryptoListBloc(this.coinsRepositoy) : super(CryptoListInitial()) {
+  CryptoListBloc(this.coinsRepository) : super(CryptoListInitial()) {
     on<LoadCryptoList>((event, emit) async {
       try {
         if(state is! CryptoListLoaded){
           emit(CryptoListLoading());
         }
-        final coinsList = await coinsRepositoy.getCoinsList();
+        final coinsList = await coinsRepository.getCoinsList();
         print('Crypto LIST LOADING');
         emit(CryptoListLoaded(coinsList: coinsList));
       } catch (e) {
@@ -27,5 +27,5 @@ class CryptoListBloc extends Bloc<CryptoListEvent, CryptoListState> {
     });
   }
 
-  final AbstractCoinsRepository coinsRepositoy;
+  final AbstractCoinsRepository coinsRepository;
 }

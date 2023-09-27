@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
 
@@ -8,7 +7,6 @@ import 'package:crypto_currencies/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import '../../../repositories/crypto_coins/models/CryptoCoin.dart';
 import '../widgets/widgets.dart';
 
 class CryptoListScreen extends StatefulWidget {
