@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:crypto_currencies/features/crypto_list/bloc/crypto_list_bloc.dart';
@@ -7,6 +6,7 @@ import 'package:crypto_currencies/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import '../widgets/widgets.dart';
 
 class CryptoListScreen extends StatefulWidget {
@@ -24,12 +24,19 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Crypto Currencies List'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => TalkerScreen(talker: GetIt.I<Talker>())),);
+                }, icon: Icon(Icons.document_scanner_outlined))
+          ],
         ),
         body: RefreshIndicator(
-          onRefresh: () async{
+          onRefresh: () async {
             final completer = Completer();
             _cryptoListBloc.add(LoadCryptoList(completer: completer));
-            return completer.future;},
+            return completer.future;
+          },
           child: BlocBuilder<CryptoListBloc, CryptoListState>(
               bloc: _cryptoListBloc,
               builder: (context, state) {
@@ -46,15 +53,25 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                   );
                 }
                 if (state is CryptoListLoadingFailure) {
-                  return Column(mainAxisAlignment: MainAxisAlignment.center,
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Something went wrong',style: darkTheme.textTheme.headlineMedium,),
-                      Text('Please try again later',style: darkTheme.textTheme.headlineMedium),
-                      SizedBox(width: double.infinity,height: 30,),
-                      TextButton(onPressed: (){
-                        _cryptoListBloc.add(LoadCryptoList(completer: null));
-                      }
-                          , child: Text('Try again'))
+                      Text(
+                        'Something went wrong',
+                        style: darkTheme.textTheme.headlineMedium,
+                      ),
+                      Text('Please try again later',
+                          style: darkTheme.textTheme.headlineMedium),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 30,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            _cryptoListBloc
+                                .add(LoadCryptoList(completer: null));
+                          },
+                          child: Text('Try again'))
                     ],
                   );
                 }
